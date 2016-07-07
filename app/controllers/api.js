@@ -281,7 +281,10 @@ var parse_tx = function (req, res, next) {
       console.log('parse_tx failed with transaction rollback error, retrying ' + txid)
       return parse_tx(req, res, next) // retry
     }
-    if (err) return next(err)
+    if (err) {
+      console.log('parse_tx err = ', err)
+      return next(err)
+    }
     console.timeEnd('parse_tx: full_parse ' + txid)
     res.send({txid: txid})
   })
